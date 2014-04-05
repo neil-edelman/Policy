@@ -111,20 +111,29 @@ void Policy_(struct Policy **p_ptr) {
 int PolicyIterate(struct Policy *p) {
 	struct Square *s;
 	enum Direction a;
-	double m, next_value, delta;
+	double choose[ACTIONS], choice, next_value, delta;
 	int i, j;
 	int isSmall = -1;
 
 	if(!p) return 0;
 	for(i = 0; i < p->n; i++) {
 		s = p->vector[i];
-		a = SquareGetAction(s);
-		for(m = 0.0, j = 0; j < p->n; j++) {
-			/*printf("%f*%f + ", p->transition[a][i][j], SquareGetValue(p->vector[j]));*/
-			m += p->transition[a][i][j] * SquareGetValue(p->vector[j]);
+		/*a = SquareGetAction(s);*/
+		for(a = 0; a < ACTIONS; a++) {
+			for(choose[a] = 0.0, j = 0; j < p->n; j++) {
+				/*printf("%f*%f + ", p->transition[a][i][j], SquareGetValue(p->vector[j]));*/
+				choose[a] += p->transition[a][i][j] * SquareGetValue(p->vector[j]);
+			}
 		}
+		/* (lol) choose alphabetically */
+		a      = DOWN;
+		choice = choose[DOWN];
+		if(choose[LEFT]  > choice) { a = LEFT;  choice = choose[LEFT];  }
+		if(choose[RIGHT] > choice) { a = RIGHT; choice = choose[RIGHT]; }
+		if(choose[UP]    > choice) { a = UP;    choice = choose[UP];    }
+		SquareSetAction(s, a);
 		/*printf("= %f\n", m);*/
-		next_value = SquareGetReward(s) + p->discount * m;
+		next_value = SquareGetReward(s) + p->discount * choice;
 		delta = SquareGetValue(s) - next_value;
 		if(isSmall && (delta < -EPSILON || delta > EPSILON)) isSmall = 0;
 		SquareSetValue(s, next_value);

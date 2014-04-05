@@ -18,4 +18,5 @@ double SquareGetReward(const struct Square *s);
 double SquareGetValue(const struct Square *s);
 void SquareSetValue(struct Square *s, const double v);
 enum Direction SquareGetAction(const struct Square *s);
+void SquareSetAction(struct Square *s, const enum Direction dir);
 struct Square *SquareGetAdjacent(const struct Square *s, const enum Direction dir);

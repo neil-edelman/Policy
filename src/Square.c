@@ -256,6 +256,11 @@ enum Direction SquareGetAction(const struct Square *s) {
 	return s->action;
 }
 
+void SquareSetAction(struct Square *s, const enum Direction dir) {
+	if(!s) return;
+	s->action = dir;
+}
+
 struct Square *SquareGetAdjacent(const struct Square *s, const enum Direction dir) {
 	if(!s) return 0;
 	return s->adjacent[dir];

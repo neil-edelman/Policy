@@ -77,11 +77,11 @@ int main(int argc, char **argv) {
 
 	p = Policy(state[0], 0.99, &compute_transition);
 
-	printf("setting values, initial state\n");
+	printf("initial state\n");
 	SquarePrint(state[0]);
 
 	for(convergence = 0, i = 0; !convergence; i++) {
-		printf("-----\nsetting values itertation %d\n", i);
+		printf("-----\nitertation %d\n", i);
 		if(!PolicyIterate(p)) convergence = -1;
 		SquarePrint(state[0]);
 	}
