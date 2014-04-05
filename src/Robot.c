@@ -73,32 +73,16 @@ int main(int argc, char **argv) {
 	
 	SquareConnect(state[10],state[6], UP,   0);
 
-	/* print */
-	/*SquarePrint(state[0]);*/
-
-	/* do the iteratation on the values */
-	/*for(i = 0; i < N; i++) {
-		next_value = reward + l * (transtion * value);
-	}*/
-
-	/*for(n = 0; n < 10; n++) {
-	 for(i = 0; i < sizeof(V) / sizeof(double); i++) {
-	 Vn[i] = r[i] + 0.99 * T[] * V[i];
-	 memcpy(V, Vn, sizeof(Vn));
-	 }
-	 print(V);
-	}*/
+	/* now we have the Squares, we can add a Policy */
 
 	p = Policy(state[0], 0.99, &compute_transition);
 
+	printf("setting values, initial state\n");
 	SquarePrint(state[0]);
 
 	for(convergence = 0, i = 0; !convergence; i++) {
-
-		printf("\nItertation %d\n-----\n", i);
-
+		printf("-----\nsetting values itertation %d\n", i);
 		if(!PolicyIterate(p)) convergence = -1;
-
 		SquarePrint(state[0]);
 	}
 

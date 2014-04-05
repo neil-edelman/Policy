@@ -140,9 +140,10 @@ void SquareNumber(struct Square *start, struct Square *vector[]) {
 /** print by bfs */
 void SquarePrint(struct Square *start) {
 	struct Square *s = start, *e = start, *next, *cursor;
+	struct Square *print[N + 1 + N][N + 1 + N];
 	enum Direction dir;
 	int x, y, min_x = N, max_x = N, min_y = N, max_y = N;
-	struct Square *print[N + 1 + N][N + 1 + N];
+	char print_dir;
 
 	if(!start) return;
 	
@@ -192,11 +193,19 @@ void SquarePrint(struct Square *start) {
 			s = print[y][x];
 			/* null */
 			if(!s) {
-				printf("     --x--");
+				printf("      --x-- ");
 				continue;
 			}
+			/* nice try, but extended ASCII is not suppoted in my terminal */
+			switch(s->action) {
+				case UP:    print_dir = /*'\xCA'*/'^'; break;
+				case RIGHT: print_dir = /*'\xCC'*/'>'; break;
+				case DOWN:  print_dir = /*'\xCB'*/'v'; break;
+				case LEFT:  print_dir = /*'\xB9'*/'<'; break;
+				default:    print_dir = /*'\xCE'*/'*'; break;
+			}
 			/* print square */
-			printf("(%2d)%+6.2f", s->index, s->value);
+			printf("(%2d)%+7.2f%c", s->index, s->value, print_dir);
 		}
 		printf("\n");
 	}
