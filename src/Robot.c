@@ -16,8 +16,10 @@ static const char *year        = "2014";
 static const int versionMajor  = 0;
 static const int versionMinor  = 0;
 
-/* the no of cells in our example */
+/* the no of cells in our example 1 */
 #define N (11)
+/* the no of cells in example 2 <= example 1 */
+#define N2 (6)
 
 /* private */
 static double compute_transition(const enum Direction dir, const struct Square *from, const struct Square *to);
@@ -26,7 +28,6 @@ static void usage(const char *argvz);
 /** private (entry point) */
 int main(int argc, char **argv) {
 	struct Square *state[N];
-	enum Direction direction[N];
 	struct Policy *p;
 	int i;
 	int convergence;
@@ -37,9 +38,6 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 
-	/* start with initial policy */
-	for(i = 0; i < N; i++) direction[i] = UP;
-	
 	/* this is to get states like this:
 	 0 0 0 1
 	 0   0 -10
@@ -81,11 +79,16 @@ int main(int argc, char **argv) {
 	SquarePrint(state[0]);
 
 	for(convergence = 0, i = 0; !convergence; i++) {
-		printf("-----\nitertation %d\n", i);
+/*		printf("-----\nitertation %d\n", i);*/
 		if(!PolicyIterate(p)) convergence = -1;
-		SquarePrint(state[0]);
+/*		SquarePrint(state[0]);*/
 	}
+	SquarePrint(state[0]);
 
+	Policy_(&p);
+
+	/* now we have a different problem */
+	
 	return EXIT_SUCCESS;
 }
 

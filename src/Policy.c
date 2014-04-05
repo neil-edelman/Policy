@@ -93,15 +93,18 @@ struct Policy *Policy(struct Square *start, const double discount, double (*t)(c
 	return p;
 }
 
-/** destructor */
+/** destructor (it delectes all the squares associated to that Policy!) */
 void Policy_(struct Policy **p_ptr) {
 	struct Policy *p;
 	int i;
 
 	if(!p_ptr || !(p = *p_ptr)) return;
 	fprintf(stderr, "~Policy: erase, #%p.\n", (void *)p);
-	if(p->transition) free(p->transition);
-	if(p->vector) free(p->vector);
+	if(p->vector) {
+		/* erase the squares, too! (meh, saves having to delete them) */
+		for(i = 0; i < p->n; i++) Square_(&p->vector[i]);
+		free(p->vector);
+	}
 	for(i = 0; i < ACTIONS; i++) if(p->transition[i]) free(p->transition[i]);
 	free(p);
 	*p_ptr = p = 0;
