@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 
 	/* now we have the Squares, we can add a Policy */
 
-	p = Policy(state[0], 0.99, &compute_transition, UP);
+	p = Policy(state[0], 0.99, &compute_transition);
 
 	printf("initial state\n");
 	SquarePrint(state[0]);
@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
 	SquareConnect(state[1], state[4], DOWN, -1);
 	SquareConnect(state[2], state[5], DOWN, -1);
 
-	p = Policy(state[0], 0.9, &compute_transition_2, UP);
+	p = Policy(state[0], 0.9, &compute_transition_2);
 
 	printf("initial state\n");
 	SquarePrint(state[0]);
