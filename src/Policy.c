@@ -27,7 +27,7 @@ double mult(const double p, const int n, const double *q);
  @param start    any Square vertex thats in the connected set
  @param discount discount factor (0, 1)
  @param t        the function to calculate the transition matrix for Direction from Square to Square */
-struct Policy *Policy(struct Square *start, const double discount, double (*t)(const enum Direction, const struct Square *, const struct Square *)) {
+struct Policy *Policy(struct Square *start, const double discount, double (*t)(const enum Direction, const struct Square *, const struct Square *), const enum Direction def) {
 	struct Policy *p;
 	double *data;
 	int d, i, j;
@@ -93,7 +93,7 @@ struct Policy *Policy(struct Square *start, const double discount, double (*t)(c
 	return p;
 }
 
-/** destructor (it delectes all the squares associated to that Policy!) */
+/** destructor (it deletes all the squares associated to that Policy!) */
 void Policy_(struct Policy **p_ptr) {
 	struct Policy *p;
 	int i;

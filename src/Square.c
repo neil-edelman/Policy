@@ -29,7 +29,7 @@ void move(const enum Direction dir, int *x_ptr, int *y_ptr);
 int square2index(const struct Square *s, const struct Square *state[]);
 
 /** constructor */
-struct Square *Square(const double reward) {
+struct Square *Square(const double reward, const enum Direction def) {
 	struct Square *s;
 	int i;
 
@@ -41,7 +41,7 @@ struct Square *Square(const double reward) {
 	s->reward = reward;
 	s->index  = 0;
 	s->value  = reward;
-	s->action = UP; /* fixme: should have param to calc */
+	s->action = def;
 	for(i = 0; i < ACTIONS; i++) s->adjacent[i] = 0;
 	s->parent = 0;
 	s->next   = 0;

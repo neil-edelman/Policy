@@ -7,7 +7,7 @@ struct Square;
 /* should have ACTION cardinality */
 enum Direction { ROOT = -2, NOWHERE = -1, UP = 0, RIGHT, DOWN, LEFT };
 
-struct Square *Square(const double value);
+struct Square *Square(const double reward, const enum Direction def);
 void Square_(struct Square **s_ptr);
 int SquareCount(struct Square *start);
 void SquareNumber(struct Square *start, struct Square *vector[]);
