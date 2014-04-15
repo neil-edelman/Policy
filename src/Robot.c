@@ -17,7 +17,7 @@ static const int versionMajor  = 0;
 static const int versionMinor  = 0;
 
 /* the no of cells in our example 1 */
-#define N (11)
+#define N (12)
 /* the no of cells in example 2 <= example 1 */
 #define N2 (6)
 
@@ -43,7 +43,8 @@ int main(int argc, char **argv) {
 	/* this is to get states like this:
 	 0 0 0 1
 	 0   0 -10
-	 0 0 0 0   */
+	 0 0 0 0
+	 state[3] and state[6] are goal nodes */
 	
 	for(i = 0; i < N; i++) {
 		reward = 0;
@@ -69,6 +70,20 @@ int main(int argc, char **argv) {
 	SquareConnect(state[9], state[10],LEFT, -1);
 	
 	SquareConnect(state[10],state[6], UP,   0);
+
+	/* the goal nodes are absorbing, so set a dummy node, state[11], to absorb */
+
+	SquareSetInvisible(state[11]);
+
+	SquareConnect(state[3], state[11], UP,    0);
+	SquareConnect(state[3], state[11], RIGHT, 0);
+	SquareConnect(state[3], state[11], DOWN,  0);
+	SquareConnect(state[3], state[11], LEFT,  0);
+
+	SquareConnect(state[6], state[11], UP,    0);
+	SquareConnect(state[6], state[11], RIGHT, 0);
+	SquareConnect(state[6], state[11], DOWN,  0);
+	SquareConnect(state[6], state[11], LEFT,  0);
 
 	/* now we have the Squares, we can add a Policy */
 

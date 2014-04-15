@@ -20,3 +20,4 @@ void SquareSetValue(struct Square *s, const double v);
 enum Direction SquareGetAction(const struct Square *s);
 void SquareSetAction(struct Square *s, const enum Direction dir);
 struct Square *SquareGetAdjacent(const struct Square *s, const enum Direction dir);
+void SquareSetInvisible(struct Square *s);

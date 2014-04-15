@@ -21,6 +21,7 @@ struct Square {
 	/* for doing dfs */
 	struct Square *parent, *next;
 	enum Direction dir;
+	int isInvisible;
 };
 
 /* private */
@@ -46,6 +47,7 @@ struct Square *Square(const double reward, const enum Direction def) {
 	s->parent = 0;
 	s->next   = 0;
 	s->dir    = NOWHERE;
+	s->isInvisible = 0;
 	fprintf(stderr, "Square: new, #%p.\n", (void *)s);
 
 	return s;
@@ -161,7 +163,7 @@ void SquarePrint(struct Square *start) {
 	do {
 		/* add the un-selected neighbors to the list dfs */
 		for(dir = 0; dir < ACTIONS; dir++) {
-			if(!(next = s->adjacent[dir]) || (next->dir != NOWHERE)) continue;
+			if(!(next = s->adjacent[dir]) || (next->dir != NOWHERE) || next->isInvisible) continue;
 			e->next      = next;
 			next->parent = s;
 			next->dir    = dir;
@@ -264,6 +266,11 @@ void SquareSetAction(struct Square *s, const enum Direction dir) {
 struct Square *SquareGetAdjacent(const struct Square *s, const enum Direction dir) {
 	if(!s) return 0;
 	return s->adjacent[dir];
+}
+
+void SquareSetInvisible(struct Square *s) {
+	if(!s) return;
+	s->isInvisible = -1;
 }
 
 /* private */
