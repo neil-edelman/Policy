@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
 	SquarePrint(state[0]);
 
 	for(convergence = 0, i = 0; !convergence; i++) {
-		printf("-----\nitertation %d\n", i + 1);
+		printf("-----\niteration %d\n", i + 1);
 		if(!PolicyIterate(p)) convergence = -1;
 		SquarePrint(state[0]);
 	}
